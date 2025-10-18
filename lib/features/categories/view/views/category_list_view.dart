@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_c16_7pm/common/extentions/theme_extention.dart';
-import 'package:news_app_c16_7pm/enums/category_enum.dart';
-import 'package:news_app_c16_7pm/screens/widgets/category_card_widget.dart';
+import 'package:news_app_c16_7pm/features/categories/data/enums/category_enum.dart';
+import 'package:news_app_c16_7pm/features/categories/view/widgets/category_card_widget.dart';
 
 class CategoryListView extends StatelessWidget {
   const CategoryListView({super.key});

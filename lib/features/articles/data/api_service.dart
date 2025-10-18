@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:news_app_c16_7pm/models/news_list_model.dart';
-import 'package:news_app_c16_7pm/models/sources_model.dart';
-import 'package:news_app_c16_7pm/network/network_consts.dart';
+import 'package:news_app_c16_7pm/features/articles/data/models/news_list_model.dart';
+import 'package:news_app_c16_7pm/features/articles/data/models/sources_model.dart';
+import 'package:news_app_c16_7pm/common/network/network_consts.dart';
 
 class ApiService {
   static Dio _dio = Dio(BaseOptions(baseUrl: NetworkConsts.baseUrl));
@@ -14,6 +14,7 @@ class ApiService {
         queryParameters: {'apiKey': NetworkConsts.apiKey, 'category': category},
       );
       SourcesModel sourcesModel = SourcesModel.fromJson(response.data);
+
       if (response.statusCode == 200 && sourcesModel.status == 'ok') {
         return sourcesModel;
       } else {
@@ -26,13 +27,13 @@ class ApiService {
     }
   }
 
-  static Future<NewsListModel> getNews(String sourceID) async {
+  static Future<ArticlesListModel> getArticles(String sourceID) async {
     try {
       Response response = await _dio.get(
         NetworkConsts.newsEndPoint,
         queryParameters: {'sources': sourceID, 'apiKey': NetworkConsts.apiKey},
       );
-      NewsListModel newsModel = NewsListModel.fromJson(response.data);
+      ArticlesListModel newsModel = ArticlesListModel.fromJson(response.data);
       if (newsModel.status == 'ok' && response.statusCode == 200) {
         return newsModel;
       } else {

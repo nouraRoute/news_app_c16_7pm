@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_c16_7pm/common/extentions/theme_extention.dart';
-import 'package:news_app_c16_7pm/enums/category_enum.dart';
-import 'package:news_app_c16_7pm/providers/category_provider.dart';
+import 'package:news_app_c16_7pm/features/articles/viewModel/articles_provider.dart';
+import 'package:news_app_c16_7pm/features/categories/data/enums/category_enum.dart';
+import 'package:news_app_c16_7pm/features/categories/viewModel/category_provider.dart';
 import 'package:provider/provider.dart';
 
 class CategoryCardWidget extends StatelessWidget {
@@ -15,8 +16,10 @@ class CategoryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          context.read<CategoryProvider>().selectCategory(categoryEnum),
+      onTap: () {
+        context.read<CategoryProvider>().selectCategory(categoryEnum);
+        context.read<ArticlesProvider>().getSources(categoryEnum.name);
+      },
       child: Container(
         padding: EdgeInsets.all(16),
         margin: EdgeInsets.symmetric(vertical: 8),

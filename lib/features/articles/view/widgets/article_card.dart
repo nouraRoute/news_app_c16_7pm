@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app_c16_7pm/common/extentions/theme_extention.dart';
-import 'package:news_app_c16_7pm/models/news_list_model.dart';
+import 'package:news_app_c16_7pm/features/articles/data/models/news_list_model.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ArticleCard extends StatelessWidget {
@@ -25,6 +25,9 @@ class ArticleCard extends StatelessWidget {
             borderRadius: BorderRadiusGeometry.circular(16),
             child: CachedNetworkImage(
               imageUrl: articles.urlToImage ?? '',
+              height: 220,
+              width: double.infinity,
+              fit: BoxFit.cover,
               placeholder: (context, url) => Container(
                 alignment: Alignment(0, 0),
                 height: 100,

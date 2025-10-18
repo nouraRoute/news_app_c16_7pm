@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_c16_7pm/providers/category_provider.dart';
-import 'package:news_app_c16_7pm/screens/views/category_details_view.dart';
-import 'package:news_app_c16_7pm/screens/views/category_list_view.dart';
-import 'package:news_app_c16_7pm/screens/views/home_drawer_view.dart';
+import 'package:news_app_c16_7pm/features/articles/viewModel/articles_provider.dart';
+import 'package:news_app_c16_7pm/features/categories/viewModel/category_provider.dart';
+import 'package:news_app_c16_7pm/features/articles/view/category_details_view.dart';
+import 'package:news_app_c16_7pm/features/categories/view/views/category_list_view.dart';
+import 'package:news_app_c16_7pm/features/categories/view/views/home_drawer_view.dart';
 import 'package:provider/provider.dart';
 
 class MainLayerScreen extends StatelessWidget {
@@ -11,8 +12,11 @@ class MainLayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => CategoryProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => CategoryProvider()),
+        ChangeNotifierProvider(create: (context) => ArticlesProvider()),
+      ],
       child: Consumer<CategoryProvider>(
         builder:
             (BuildContext context, CategoryProvider provider, Widget? child) =>
