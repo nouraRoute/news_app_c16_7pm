@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_c16_7pm/features/articles/viewModel/articles_provider.dart';
+import 'package:news_app_c16_7pm/common/service_locator/service_locator.dart';
 import 'package:news_app_c16_7pm/features/categories/viewModel/category_provider.dart';
 import 'package:news_app_c16_7pm/features/articles/view/category_details_view.dart';
 import 'package:news_app_c16_7pm/features/categories/view/views/category_list_view.dart';
@@ -15,7 +15,9 @@ class MainLayerScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
-        ChangeNotifierProvider(create: (context) => ArticlesProvider()),
+        ChangeNotifierProvider(
+          create: (context) => ServiceLocator.articlesProvider,
+        ),
       ],
       child: Consumer<CategoryProvider>(
         builder:

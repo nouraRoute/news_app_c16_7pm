@@ -33,6 +33,10 @@ abstract class FailureModel implements Exception {
         );
     }
   }
+
+  static FailureModel getBaseErrors() {
+    return BaseError(errorMessage: 'Something went wrong');
+  }
 }
 
 class BaseError extends FailureModel {
