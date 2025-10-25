@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:news_app_c16_7pm/common/error/failure_model.dart';
 import 'package:news_app_c16_7pm/features/articles/data/models/news_list_model.dart';
 import 'package:news_app_c16_7pm/features/articles/data/models/sources_model.dart';
 import 'package:news_app_c16_7pm/common/network/network_consts.dart';
@@ -18,12 +19,15 @@ class ApiService {
       if (response.statusCode == 200 && sourcesModel.status == 'ok') {
         return sourcesModel;
       } else {
-        throw sourcesModel.message ?? 'something went wrong';
+        throw BaseError(
+          errorMessage: sourcesModel.message ?? 'something went wrong',
+          errorCode: response.statusCode,
+        );
       }
     } on DioException catch (e) {
-      throw e.message ?? 'something went wrong';
+      throw FailureModel.getNetworkMessage(e);
     } catch (e) {
-      throw e.toString();
+      throw BaseError(errorMessage: e.toString());
     }
   }
 
@@ -33,16 +37,21 @@ class ApiService {
         NetworkConsts.newsEndPoint,
         queryParameters: {'sources': sourceID, 'apiKey': NetworkConsts.apiKey},
       );
-      ArticlesListModel newsModel = ArticlesListModel.fromJson(response.data);
-      if (newsModel.status == 'ok' && response.statusCode == 200) {
-        return newsModel;
+      ArticlesListModel articleModel = ArticlesListModel.fromJson(
+        response.data,
+      );
+      if (articleModel.status == 'ok' && response.statusCode == 200) {
+        return articleModel;
       } else {
-        throw newsModel.message ?? 'someThegn went wrong';
+        throw BaseError(
+          errorMessage: articleModel.message ?? 'something went wrong',
+          errorCode: response.statusCode,
+        );
       }
     } on DioException catch (e) {
-      throw e.message ?? 'something went wrong';
+      throw FailureModel.getNetworkMessage(e);
     } catch (e) {
-      throw e.toString();
+      throw BaseError(errorMessage: e.toString());
     }
   }
 }

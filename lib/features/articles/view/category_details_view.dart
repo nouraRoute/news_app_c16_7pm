@@ -22,7 +22,7 @@ class CategoryDetailsView extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text(viewModel.sourcesError!),
+                  child: Text(viewModel.sourcesError!.toString()),
                 ),
                 TextButton.icon(
                   onPressed: () {

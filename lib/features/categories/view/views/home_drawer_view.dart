@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app_c16_7pm/features/categories/viewModel/category_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -13,13 +14,13 @@ class HomeDrawerView extends StatelessWidget {
         children: [
           Container(
             color: Colors.white,
-            height: 166,
+            height: 166.h,
             width: double.infinity,
             alignment: Alignment(0, 0),
             child: Text(
               'News App',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
@@ -36,11 +37,11 @@ class HomeDrawerView extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 20.sp,
               ),
             ),
           ),
-          Divider(endIndent: 16, indent: 16),
+          Divider(endIndent: 16.w, indent: 16.w),
         ],
       ),
     );

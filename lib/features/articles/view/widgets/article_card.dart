@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app_c16_7pm/common/extentions/theme_extention.dart';
 import 'package:news_app_c16_7pm/features/articles/data/models/news_list_model.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -25,17 +26,17 @@ class ArticleCard extends StatelessWidget {
             borderRadius: BorderRadiusGeometry.circular(16),
             child: CachedNetworkImage(
               imageUrl: articles.urlToImage ?? '',
-              height: 220,
+              height: 220.h,
               width: double.infinity,
               fit: BoxFit.cover,
               placeholder: (context, url) => Container(
                 alignment: Alignment(0, 0),
-                height: 100,
+                height: 100.h,
                 child: CircularProgressIndicator(),
               ),
               errorWidget: (context, url, error) => Container(
                 alignment: Alignment(0, 0),
-                height: 100,
+                height: 100.h,
                 child: Icon(Icons.broken_image_outlined),
               ),
             ),
@@ -51,7 +52,7 @@ class ArticleCard extends StatelessWidget {
                 child: Text(
                   articles.description ?? '',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                     color: Color(0xffA0A0A0),
                   ),
@@ -62,7 +63,7 @@ class ArticleCard extends StatelessWidget {
               Text(
                 timeago.format(DateTime.parse(articles.publishedAt ?? '')),
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
                   color: Color(0xffA0A0A0),
                 ),
