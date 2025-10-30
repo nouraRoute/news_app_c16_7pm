@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_c16_7pm/common/extentions/theme_extention.dart';
-import 'package:news_app_c16_7pm/features/articles/viewModel/articles_provider.dart';
+import 'package:news_app_c16_7pm/features/articles/presentation/viewModel/articles_cubit.dart';
+import 'package:news_app_c16_7pm/features/articles/presentation/viewModel/articles_provider.dart';
 import 'package:news_app_c16_7pm/features/categories/data/enums/category_enum.dart';
+import 'package:news_app_c16_7pm/features/categories/viewModel/category_cubit.dart';
 import 'package:news_app_c16_7pm/features/categories/viewModel/category_provider.dart';
-import 'package:provider/provider.dart';
 
 class CategoryCardWidget extends StatelessWidget {
   const CategoryCardWidget({
@@ -17,8 +19,8 @@ class CategoryCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.read<CategoryProvider>().selectCategory(categoryEnum);
-        context.read<ArticlesProvider>().getSources(categoryEnum.name);
+        context.read<CategoryCubit>().selectCategory(categoryEnum);
+        context.read<ArticlesCubit>().getSources(categoryEnum.name);
       },
       child: Container(
         padding: EdgeInsets.all(16),

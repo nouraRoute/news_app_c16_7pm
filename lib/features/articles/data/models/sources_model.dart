@@ -1,3 +1,5 @@
+import 'package:news_app_c16_7pm/features/articles/domain/entity/source_entity.dart';
+
 class SourcesModel {
   String? status;
   String? message;
@@ -26,9 +28,7 @@ class SourcesModel {
   }
 }
 
-class Sources {
-  String? id;
-  String? name;
+class Sources extends SourceEntity {
   String? description;
   String? url;
   String? category;
@@ -36,8 +36,8 @@ class Sources {
   String? country;
 
   Sources({
-    this.id,
-    this.name,
+    super.id,
+    super.name,
     this.description,
     this.url,
     this.category,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_c16_7pm/common/service_locator/service_locator.dart';
-import 'package:news_app_c16_7pm/features/categories/viewModel/category_provider.dart';
-import 'package:news_app_c16_7pm/features/articles/view/category_details_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_c16_7pm/common/service_locator/di/di.dart';
+import 'package:news_app_c16_7pm/features/articles/presentation/viewModel/articles_cubit.dart';
+import 'package:news_app_c16_7pm/features/categories/data/enums/category_enum.dart';
+import 'package:news_app_c16_7pm/features/categories/viewModel/category_cubit.dart';
+import 'package:news_app_c16_7pm/features/articles/presentation/view/category_details_view.dart';
 import 'package:news_app_c16_7pm/features/categories/view/views/category_list_view.dart';
 import 'package:news_app_c16_7pm/features/categories/view/views/home_drawer_view.dart';
-import 'package:provider/provider.dart';
 
 class MainLayerScreen extends StatelessWidget {
   static const String routeName = '/mainLayerScreen';
@@ -12,34 +14,25 @@ class MainLayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => CategoryProvider()),
-        ChangeNotifierProvider(
-          create: (context) => ServiceLocator.articlesProvider,
-        ),
+        BlocProvider(create: (context) => CategoryCubit()),
+        BlocProvider(create: (context) => getIt<ArticlesCubit>(param1: true)),
       ],
-      child: Consumer<CategoryProvider>(
-        builder:
-            (BuildContext context, CategoryProvider provider, Widget? child) =>
-                Scaffold(
-                  drawer: HomeDrawerView(),
-                  appBar: AppBar(
-                    centerTitle: true,
-                    title: Text(
-                      provider.selectedCategory == null
-                          ? 'Home'
-                          : provider.selectedCategory!.name,
-                    ),
-                    actions: [
-                      IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                    ],
-                  ),
-                  body: provider.selectedCategory == null
-                      ? CategoryListView()
-                      : CategoryDetailsView(),
-                ),
+      child: BlocBuilder<CategoryCubit, CategoryEnum?>(
+        builder: (BuildContext context, CategoryEnum? state) => Scaffold(
+          drawer: HomeDrawerView(),
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(state == null ? 'Home' : state.name),
+            actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+          ),
+          body: state == null ? CategoryListView() : CategoryDetailsView(),
+        ),
       ),
     );
   }
 }
+//bloc builder->set state
+//bloc listener->call function
+//bloc consumer->

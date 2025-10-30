@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app_c16_7pm/features/categories/viewModel/category_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:news_app_c16_7pm/features/categories/viewModel/category_cubit.dart';
 
 class HomeDrawerView extends StatelessWidget {
   const HomeDrawerView({super.key});
@@ -28,7 +28,7 @@ class HomeDrawerView extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              context.read<CategoryProvider>().goToHome();
+              context.read<CategoryCubit>().goToHome();
               Navigator.pop(context);
             },
             leading: Icon(Icons.home, color: Colors.white),

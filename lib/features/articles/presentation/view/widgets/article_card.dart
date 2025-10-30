@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app_c16_7pm/common/extentions/theme_extention.dart';
-import 'package:news_app_c16_7pm/features/articles/data/models/news_list_model.dart';
+import 'package:news_app_c16_7pm/features/articles/domain/entity/article_entity.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ArticleCard extends StatelessWidget {
-  const ArticleCard({super.key, required this.articles});
-  final Articles articles;
+  const ArticleCard({super.key, required this.article});
+  final ArticleEntity article;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ArticleCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(16),
             child: CachedNetworkImage(
-              imageUrl: articles.urlToImage ?? '',
+              imageUrl: article.urlToImage ?? '',
               height: 220.h,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -42,7 +42,7 @@ class ArticleCard extends StatelessWidget {
             ),
           ),
           Text(
-            articles.title ?? '',
+            article.title ?? '',
             style: context.getTextTheme.displaySmall!.copyWith(fontSize: 16),
           ),
           Row(
@@ -50,7 +50,7 @@ class ArticleCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  articles.description ?? '',
+                  article.description ?? '',
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
@@ -61,7 +61,7 @@ class ArticleCard extends StatelessWidget {
               ),
 
               Text(
-                timeago.format(DateTime.parse(articles.publishedAt ?? '')),
+                timeago.format(DateTime.parse(article.publishedAt ?? '')),
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,

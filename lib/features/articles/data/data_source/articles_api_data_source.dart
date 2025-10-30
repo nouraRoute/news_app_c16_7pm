@@ -1,12 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news_app_c16_7pm/common/error/failure_model.dart';
-import 'package:news_app_c16_7pm/features/articles/data/articles_data_source.dart';
+import 'package:news_app_c16_7pm/features/articles/data/data_source/articles_data_source.dart';
 import 'package:news_app_c16_7pm/features/articles/data/models/news_list_model.dart';
 import 'package:news_app_c16_7pm/features/articles/data/models/sources_model.dart';
 import 'package:news_app_c16_7pm/common/network/network_consts.dart';
 
+@LazySingleton(as: ArticlesDataSource)
 class ArticlesApiDataSource extends ArticlesDataSource {
-  final Dio _dio = Dio(BaseOptions(baseUrl: NetworkConsts.baseUrl));
+  final Dio _dio;
+
+  ArticlesApiDataSource({required Dio dio}) : _dio = dio;
 
   @override
   Future<SourcesModel> getSources(String category) async {
